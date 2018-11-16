@@ -5,10 +5,11 @@
  */
 package DAO;
 
+
 /**
  *
  * @author gabri
  */
-public class CategoriaDAO {
     
-}
+   
+

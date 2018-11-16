@@ -5,6 +5,14 @@
  */
 package Visao.Consultar;
 
+import DAO.ClienteDAO;
+import DAO.Conexao;
+import Modelo.Cliente;
+import java.awt.List;
+import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gabri
@@ -16,8 +24,36 @@ public class ConsultarCliente extends javax.swing.JFrame {
      */
     public ConsultarCliente() {
         initComponents();
+        
+        setTitle("Vídeo Locadora");
+        SetSize(970, 380);
+        AtualizaTable();
     }
-
+        private void AtualiazaTable() {
+            Connection con = Conexao.AbrirConexao();
+            ClienteDAO bd = new ClienteDAO(con);
+            java.util.List<Cliente> lista = new ArrayList<>();
+            lista = bd.ListarCliente();
+            DefaultTableModel tbm = 
+                    (DefaultTableModel) jTable.getModel();
+            while (tbm.getRowCount() > 0) {
+                tbm.removeRow(0);
+            }
+            int i = 0;
+            for (Cliente tab : lista) {
+                tbm.addRow(new String[i]);
+                jTable.setValueAt(tab.getCodigo(), 1, 0);
+                jTable.setValueAt(tab.getNome(), i, 1);
+                jTable.setValueAt(tab.getRG(), i, 2);
+                jTable.setValueAt(tab.getCPF(), i, 3);
+                jTable.setValueAt(tab.getTelefone(), i, 4);
+                jTable.setValueAt(tab.getEmail(), i, 5);
+                i++;
+                
+                
+            }
+            Conexao.FecharConexao(con); 
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +67,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -45,7 +81,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
 
         jButton1.setText("P");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -53,7 +89,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
                 "Código", "Cliente", "RG", "CPF", "Telefone", "Email"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         jLabel2.setText("Pesquisa por código: ");
 
@@ -170,8 +206,16 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    private void SetSize(int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void AtualizaTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
